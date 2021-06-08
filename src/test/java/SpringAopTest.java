@@ -12,7 +12,7 @@ public class SpringAopTest {
         AnnotationConfigApplicationContext annotationConfigApplicationContext
                 = new AnnotationConfigApplicationContext(MainConfigOfAop.class);
         MathCalculator mathCalculator = annotationConfigApplicationContext.getBean(MathCalculator.class);
-        System.out.println(mathCalculator.div(1,0));
+        mathCalculator.div(1,1);
         annotationConfigApplicationContext.close();
     }
 }
