@@ -52,4 +52,36 @@ public class TestTest {
         //System.out.println(num2.compareTo(num3));
 
     }
+
+    public static void strMove(char[] str) {
+        int i = str.length - 1; // 遍历的次数
+        int j = i; // j 遍历字符串中的非*字符
+        while (j > 0 && str[j] != '*') // 跳过最后面的非'*'字符
+        {
+            j--;
+        }
+        while (j > 0 && i >= 0) {
+            while (str[i] != '*' && i >= 0) {
+                i--;
+            }
+            while (str[j] == '*' && j >= 0) {
+                j--;
+            }
+        // 交换 j.i 处字符
+            str[i--] = str[j]; // *前面的字符后移放到*的位置
+            str[j--] = '*'; // 将*前移
+        }
+        System.out.println(str);
+    }
+
+    /**
+     * 现再有一字符串*abc**gfe***xyz*，请写一个方法，将*号移到首部，并
+     * 不改变其他字母的顺序，即结果为 *******abcgfexy
+     */
+    @Test
+    public void test3() {
+        String str = "a*bc**gfe***xyz*";
+        char[] strs = str.toCharArray();
+        strMove(strs);
+    }
 }
