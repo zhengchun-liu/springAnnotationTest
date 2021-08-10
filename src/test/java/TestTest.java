@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TestTest {
@@ -84,4 +85,60 @@ public class TestTest {
         char[] strs = str.toCharArray();
         strMove(strs);
     }
+
+    /**
+     * 1. 三个同样的字母连在一起，一定是拼写错误，去掉一个的就好啦：比如 helllo -> hello
+     * 2. 两对一样的字母（AABB型）连在一起，一定是拼写错误，去掉第二对的一个字母就好啦：比如 helloo -> hello
+     * 3. 上面的规则优先“从左到右”匹配，即如果是AABBCC，虽然AABB和BBCC都是错误拼写，应该优先考虑修复AABB，结果为AABCC
+     * 2
+     * helloo
+     * wooooooow
+     * hello
+     * woow
+     */
+    @Test
+    public void test4() {
+        Scanner scanner = new Scanner(System.in);
+        int line = scanner.nextInt();
+        scanner.nextLine();
+        for (int i = 0; i < line; i++) {
+            System.out.println(scanner.nextLine().replaceAll("(.)\\1+","$1$1").replaceAll("(.)\\1(.)\\2","$1$1$2"));
+        }
+    }
+
+    public class Base
+    {
+        public void methodOne()
+        {
+            System.out.print("A");
+            methodTwo();
+        }
+
+        public void methodTwo()
+        {
+            System.out.print("B");
+        }
+    }
+
+    public class Derived extends Base
+    {
+        public void methodOne()
+        {
+            super.methodOne();
+            System.out.print("C");
+        }
+
+        public void methodTwo()
+        {
+            super.methodTwo();
+            System.out.print("D");
+        }
+    }
+
+    @Test
+    public void test5() {
+        Base b = new Derived();
+        b.methodOne();
+    }
+
 }
