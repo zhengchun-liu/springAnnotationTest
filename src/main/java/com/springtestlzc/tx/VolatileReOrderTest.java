@@ -3,6 +3,12 @@ package com.springtestlzc.tx;
 import sun.applet.AppletClassLoader;
 import sun.misc.Unsafe;
 
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class VolatileReOrderTest {
 
     //private volatile static int a=0, b = 0;
@@ -12,6 +18,12 @@ public class VolatileReOrderTest {
     static Object object = new Object();
     public static void main(String[] args) throws InterruptedException {
 
+        Semaphore semaphore = new Semaphore(2);
+        semaphore.acquire();
+        semaphore.release();
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
+        Executors.newFixedThreadPool(10);
+        //Exchanger
 
         int i = 0;
         for(;;) {
@@ -57,5 +69,4 @@ public class VolatileReOrderTest {
             end = System.nanoTime();
         } while (start + interval >= end);
     }
-    
 }
